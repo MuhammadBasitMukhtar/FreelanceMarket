@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FreelanceMPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="attachment">
+    <Key>
+      <PropertyRef Name="aid" />
+    </Key>
+    <Property Name="aid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectid" Type="int" />
+    <Property Name="afile" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="bid">
+    <Key>
+      <PropertyRef Name="bid" />
+    </Key>
+    <Property Name="bid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectid" Type="int" />
+    <Property Name="freelancerid" Type="int" />
+    <Property Name="proposal" Type="nvarchar(max)" />
+    <Property Name="status" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="catid" />
+    </Key>
+    <Property Name="catid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="project">
+    <Key>
+      <PropertyRef Name="projectid" />
+    </Key>
+    <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar(max)" />
+    <Property Name="desc" Type="nvarchar(max)" />
+    <Property Name="clientid" Type="int" />
+    <Property Name="categoryid" Type="int" />
+    <Property Name="skills" Type="nvarchar(max)" />
+    <Property Name="cost" Type="money" />
+    <Property Name="duration" Type="nvarchar(max)" />
+    <Property Name="date_of_post" Type="date" />
+    <Property Name="status" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="review">
+    <Key>
+      <PropertyRef Name="rid" />
+    </Key>
+    <Property Name="rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="clientid" Type="int" />
+    <Property Name="freelancerid" Type="int" />
+    <Property Name="projectid" Type="int" />
+    <Property Name="ftoc" Type="int" />
+    <Property Name="ctof" Type="int" />
+  </EntityType>
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="roleid" />
+    </Key>
+    <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rolename" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="userdetail">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" />
+    <Property Name="email" Type="nvarchar(max)" />
+    <Property Name="address" Type="nvarchar(max)" />
+    <Property Name="date_of_joining" Type="date" />
+    <Property Name="contact" Type="nvarchar(max)" />
+    <Property Name="pass" Type="nvarchar(max)" />
+    <Property Name="roleid" Type="int" />
+    <Property Name="isverified" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FreelanceMP.dbo.logindetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="logindetail">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" />
+    <Property Name="email" Type="nvarchar(max)" />
+    <Property Name="pass" Type="nvarchar(max)" />
+    <Property Name="role" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK__attachmen__proje__1FCDBCEB">
+    <End Role="project" Type="Self.project" Multiplicity="0..1" />
+    <End Role="attachment" Type="Self.attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="projectid" />
+      </Principal>
+      <Dependent Role="attachment">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bid__freelanceri__286302EC">
+    <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+    <End Role="bid" Type="Self.bid" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userdetail">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="bid">
+        <PropertyRef Name="freelancerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bid__projectid__276EDEB3">
+    <End Role="project" Type="Self.project" Multiplicity="0..1" />
+    <End Role="bid" Type="Self.bid" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="projectid" />
+      </Principal>
+      <Dependent Role="bid">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__project__categor__1BFD2C07">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="project" Type="Self.project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="catid" />
+      </Principal>
+      <Dependent Role="project">
+        <PropertyRef Name="categoryid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__project__clienti__1B0907CE">
+    <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+    <End Role="project" Type="Self.project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userdetail">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="project">
+        <PropertyRef Name="clientid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__review__clientid__22AA2996">
+    <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+    <End Role="review" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userdetail">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="review">
+        <PropertyRef Name="clientid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__review__freelanc__239E4DCF">
+    <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+    <End Role="review" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userdetail">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="review">
+        <PropertyRef Name="freelancerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__review__projecti__24927208">
+    <End Role="project" Type="Self.project" Multiplicity="0..1" />
+    <End Role="review" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="projectid" />
+      </Principal>
+      <Dependent Role="review">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__userdetai__rolei__145C0A3F">
+    <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+    <End Role="userdetail" Type="Self.userdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="roleid" />
+      </Principal>
+      <Dependent Role="userdetail">
+        <PropertyRef Name="roleid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FreelanceMPModelStoreContainer">
+    <EntitySet Name="attachment" EntityType="Self.attachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bid" EntityType="Self.bid" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userdetail" EntityType="Self.userdetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="logindetail" EntityType="Self.logindetail" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [logindetail].[userid] AS [userid], 
+    [logindetail].[name] AS [name], 
+    [logindetail].[email] AS [email], 
+    [logindetail].[pass] AS [pass], 
+    [logindetail].[role] AS [role]
+    FROM [dbo].[logindetail] AS [logindetail]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__attachmen__proje__1FCDBCEB" Association="Self.FK__attachmen__proje__1FCDBCEB">
+      <End Role="project" EntitySet="project" />
+      <End Role="attachment" EntitySet="attachment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bid__freelanceri__286302EC" Association="Self.FK__bid__freelanceri__286302EC">
+      <End Role="userdetail" EntitySet="userdetail" />
+      <End Role="bid" EntitySet="bid" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bid__projectid__276EDEB3" Association="Self.FK__bid__projectid__276EDEB3">
+      <End Role="project" EntitySet="project" />
+      <End Role="bid" EntitySet="bid" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project__categor__1BFD2C07" Association="Self.FK__project__categor__1BFD2C07">
+      <End Role="category" EntitySet="category" />
+      <End Role="project" EntitySet="project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__project__clienti__1B0907CE" Association="Self.FK__project__clienti__1B0907CE">
+      <End Role="userdetail" EntitySet="userdetail" />
+      <End Role="project" EntitySet="project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__review__clientid__22AA2996" Association="Self.FK__review__clientid__22AA2996">
+      <End Role="userdetail" EntitySet="userdetail" />
+      <End Role="review" EntitySet="review" />
+    </AssociationSet>
+    <AssociationSet Name="FK__review__freelanc__239E4DCF" Association="Self.FK__review__freelanc__239E4DCF">
+      <End Role="userdetail" EntitySet="userdetail" />
+      <End Role="review" EntitySet="review" />
+    </AssociationSet>
+    <AssociationSet Name="FK__review__projecti__24927208" Association="Self.FK__review__projecti__24927208">
+      <End Role="project" EntitySet="project" />
+      <End Role="review" EntitySet="review" />
+    </AssociationSet>
+    <AssociationSet Name="FK__userdetai__rolei__145C0A3F" Association="Self.FK__userdetai__rolei__145C0A3F">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="userdetail" EntitySet="userdetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

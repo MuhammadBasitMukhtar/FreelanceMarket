@@ -1,0 +1,90 @@
+﻿@model FreelanceMarket.Models.userdetail
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>userdetail</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.date_of_joining)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.date_of_joining)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.contact)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.contact)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.pass)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.pass)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.isverified)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.isverified)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.role.rolename)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.role.rolename)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.userid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

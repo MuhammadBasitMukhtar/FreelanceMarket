@@ -1,0 +1,631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FreelanceMPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attachment">
+          <Key>
+            <PropertyRef Name="aid" />
+          </Key>
+          <Property Name="aid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectid" Type="int" />
+          <Property Name="afile" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="bid">
+          <Key>
+            <PropertyRef Name="bid" />
+          </Key>
+          <Property Name="bid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectid" Type="int" />
+          <Property Name="freelancerid" Type="int" />
+          <Property Name="proposal" Type="nvarchar(max)" />
+          <Property Name="status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="desc" Type="nvarchar(max)" />
+          <Property Name="clientid" Type="int" />
+          <Property Name="categoryid" Type="int" />
+          <Property Name="skills" Type="nvarchar(max)" />
+          <Property Name="cost" Type="money" />
+          <Property Name="duration" Type="nvarchar(max)" />
+          <Property Name="date_of_post" Type="date" />
+          <Property Name="status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientid" Type="int" />
+          <Property Name="freelancerid" Type="int" />
+          <Property Name="projectid" Type="int" />
+          <Property Name="ftoc" Type="int" />
+          <Property Name="ctof" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolename" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="userdetail">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="date_of_joining" Type="date" />
+          <Property Name="contact" Type="nvarchar(max)" />
+          <Property Name="pass" Type="nvarchar(max)" />
+          <Property Name="roleid" Type="int" />
+          <Property Name="isverified" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FreelanceMP.dbo.logindetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="logindetail">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="pass" Type="nvarchar(max)" />
+          <Property Name="role" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__attachmen__proje__1FCDBCEB">
+          <End Role="project" Type="Self.project" Multiplicity="0..1" />
+          <End Role="attachment" Type="Self.attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="attachment">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bid__freelanceri__286302EC">
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="bid" Type="Self.bid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="bid">
+              <PropertyRef Name="freelancerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bid__projectid__276EDEB3">
+          <End Role="project" Type="Self.project" Multiplicity="0..1" />
+          <End Role="bid" Type="Self.bid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="bid">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__project__categor__1BFD2C07">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="project" Type="Self.project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="catid" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__project__clienti__1B0907CE">
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="project" Type="Self.project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="clientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__clientid__22AA2996">
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="clientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__freelanc__239E4DCF">
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="freelancerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__projecti__24927208">
+          <End Role="project" Type="Self.project" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userdetai__rolei__145C0A3F">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="userdetail">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FreelanceMPModelStoreContainer">
+          <EntitySet Name="attachment" EntityType="Self.attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bid" EntityType="Self.bid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userdetail" EntityType="Self.userdetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="logindetail" EntityType="Self.logindetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [logindetail].[userid] AS [userid], 
+    [logindetail].[name] AS [name], 
+    [logindetail].[email] AS [email], 
+    [logindetail].[pass] AS [pass], 
+    [logindetail].[role] AS [role]
+    FROM [dbo].[logindetail] AS [logindetail]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__attachmen__proje__1FCDBCEB" Association="Self.FK__attachmen__proje__1FCDBCEB">
+            <End Role="project" EntitySet="project" />
+            <End Role="attachment" EntitySet="attachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bid__freelanceri__286302EC" Association="Self.FK__bid__freelanceri__286302EC">
+            <End Role="userdetail" EntitySet="userdetail" />
+            <End Role="bid" EntitySet="bid" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bid__projectid__276EDEB3" Association="Self.FK__bid__projectid__276EDEB3">
+            <End Role="project" EntitySet="project" />
+            <End Role="bid" EntitySet="bid" />
+          </AssociationSet>
+          <AssociationSet Name="FK__project__categor__1BFD2C07" Association="Self.FK__project__categor__1BFD2C07">
+            <End Role="category" EntitySet="category" />
+            <End Role="project" EntitySet="project" />
+          </AssociationSet>
+          <AssociationSet Name="FK__project__clienti__1B0907CE" Association="Self.FK__project__clienti__1B0907CE">
+            <End Role="userdetail" EntitySet="userdetail" />
+            <End Role="project" EntitySet="project" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__clientid__22AA2996" Association="Self.FK__review__clientid__22AA2996">
+            <End Role="userdetail" EntitySet="userdetail" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__freelanc__239E4DCF" Association="Self.FK__review__freelanc__239E4DCF">
+            <End Role="userdetail" EntitySet="userdetail" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__projecti__24927208" Association="Self.FK__review__projecti__24927208">
+            <End Role="project" EntitySet="project" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userdetai__rolei__145C0A3F" Association="Self.FK__userdetai__rolei__145C0A3F">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="userdetail" EntitySet="userdetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FreelanceMPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleid" />
+          </Key>
+          <Property Name="roleid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userdetails" Relationship="Self.FK__userdetai__rolei__145C0A3F" FromRole="roles" ToRole="userdetail" />
+        </EntityType>
+        <EntityType Name="userdetail">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_joining" Type="DateTime" Precision="0" />
+          <Property Name="contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="roleid" Type="Int32" />
+          <Property Name="isverified" Type="Int32" />
+          <NavigationProperty Name="role" Relationship="Self.FK__userdetai__rolei__145C0A3F" FromRole="userdetail" ToRole="roles" />
+          <NavigationProperty Name="projects" Relationship="FreelanceMPModel.FK__project__clienti__1B0907CE" FromRole="userdetail" ToRole="project" />
+          <NavigationProperty Name="reviews" Relationship="FreelanceMPModel.FK__review__clientid__22AA2996" FromRole="userdetail" ToRole="review" />
+          <NavigationProperty Name="reviews1" Relationship="FreelanceMPModel.FK__review__freelanc__239E4DCF" FromRole="userdetail" ToRole="review" />
+          <NavigationProperty Name="bids" Relationship="FreelanceMPModel.FK__bid__freelanceri__286302EC" FromRole="userdetail" ToRole="bid" />
+        </EntityType>
+        <Association Name="FK__userdetai__rolei__145C0A3F">
+          <End Role="roles" Type="Self.role" Multiplicity="0..1" />
+          <End Role="userdetail" Type="Self.userdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleid" />
+            </Principal>
+            <Dependent Role="userdetail">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FreelanceMPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetail" />
+          <AssociationSet Name="FK__userdetai__rolei__145C0A3F" Association="Self.FK__userdetai__rolei__145C0A3F">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="userdetail" EntitySet="userdetails" />
+          </AssociationSet>
+          <EntitySet Name="categories" EntityType="FreelanceMPModel.category" />
+          <EntitySet Name="projects" EntityType="FreelanceMPModel.project" />
+          <AssociationSet Name="FK__project__categor__1BFD2C07" Association="FreelanceMPModel.FK__project__categor__1BFD2C07">
+            <End Role="category" EntitySet="categories" />
+            <End Role="project" EntitySet="projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__project__clienti__1B0907CE" Association="FreelanceMPModel.FK__project__clienti__1B0907CE">
+            <End Role="userdetail" EntitySet="userdetails" />
+            <End Role="project" EntitySet="projects" />
+          </AssociationSet>
+          <EntitySet Name="logindetails" EntityType="FreelanceMPModel.logindetail" />
+          <EntitySet Name="attachments" EntityType="FreelanceMPModel.attachment" />
+          <EntitySet Name="reviews" EntityType="FreelanceMPModel.review" />
+          <AssociationSet Name="FK__attachmen__proje__1FCDBCEB" Association="FreelanceMPModel.FK__attachmen__proje__1FCDBCEB">
+            <End Role="project" EntitySet="projects" />
+            <End Role="attachment" EntitySet="attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__projecti__24927208" Association="FreelanceMPModel.FK__review__projecti__24927208">
+            <End Role="project" EntitySet="projects" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__clientid__22AA2996" Association="FreelanceMPModel.FK__review__clientid__22AA2996">
+            <End Role="userdetail" EntitySet="userdetails" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__freelanc__239E4DCF" Association="FreelanceMPModel.FK__review__freelanc__239E4DCF">
+            <End Role="userdetail" EntitySet="userdetails" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+          <EntitySet Name="bids" EntityType="FreelanceMPModel.bid" />
+          <AssociationSet Name="FK__bid__freelanceri__286302EC" Association="FreelanceMPModel.FK__bid__freelanceri__286302EC">
+            <End Role="userdetail" EntitySet="userdetails" />
+            <End Role="bid" EntitySet="bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK__bid__projectid__276EDEB3" Association="FreelanceMPModel.FK__bid__projectid__276EDEB3">
+            <End Role="project" EntitySet="projects" />
+            <End Role="bid" EntitySet="bids" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="projects" Relationship="FreelanceMPModel.FK__project__categor__1BFD2C07" FromRole="category" ToRole="project" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="clientid" Type="Int32" />
+          <Property Name="categoryid" Type="Int32" />
+          <Property Name="skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="duration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_post" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="category" Relationship="FreelanceMPModel.FK__project__categor__1BFD2C07" FromRole="project" ToRole="category" />
+          <NavigationProperty Name="userdetail" Relationship="FreelanceMPModel.FK__project__clienti__1B0907CE" FromRole="project" ToRole="userdetail" />
+          <NavigationProperty Name="attachments" Relationship="FreelanceMPModel.FK__attachmen__proje__1FCDBCEB" FromRole="project" ToRole="attachment" />
+          <NavigationProperty Name="reviews" Relationship="FreelanceMPModel.FK__review__projecti__24927208" FromRole="project" ToRole="review" />
+          <NavigationProperty Name="bids" Relationship="FreelanceMPModel.FK__bid__projectid__276EDEB3" FromRole="project" ToRole="bid" />
+        </EntityType>
+        <Association Name="FK__project__categor__1BFD2C07">
+          <End Type="FreelanceMPModel.category" Role="category" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.project" Role="project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="catid" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__project__clienti__1B0907CE">
+          <End Type="FreelanceMPModel.userdetail" Role="userdetail" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.project" Role="project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="clientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="logindetail">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="attachment">
+          <Key>
+            <PropertyRef Name="aid" />
+          </Key>
+          <Property Name="aid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectid" Type="Int32" />
+          <Property Name="afile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="project" Relationship="FreelanceMPModel.FK__attachmen__proje__1FCDBCEB" FromRole="attachment" ToRole="project" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientid" Type="Int32" />
+          <Property Name="freelancerid" Type="Int32" />
+          <Property Name="projectid" Type="Int32" />
+          <Property Name="ftoc" Type="Int32" />
+          <Property Name="ctof" Type="Int32" />
+          <NavigationProperty Name="project" Relationship="FreelanceMPModel.FK__review__projecti__24927208" FromRole="review" ToRole="project" />
+          <NavigationProperty Name="userdetail" Relationship="FreelanceMPModel.FK__review__clientid__22AA2996" FromRole="review" ToRole="userdetail" />
+          <NavigationProperty Name="userdetail1" Relationship="FreelanceMPModel.FK__review__freelanc__239E4DCF" FromRole="review" ToRole="userdetail" />
+        </EntityType>
+        <Association Name="FK__attachmen__proje__1FCDBCEB">
+          <End Type="FreelanceMPModel.project" Role="project" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.attachment" Role="attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="attachment">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__projecti__24927208">
+          <End Type="FreelanceMPModel.project" Role="project" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__clientid__22AA2996">
+          <End Type="FreelanceMPModel.userdetail" Role="userdetail" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="clientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__freelanc__239E4DCF">
+          <End Type="FreelanceMPModel.userdetail" Role="userdetail" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="freelancerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="bid">
+          <Key>
+            <PropertyRef Name="bid1" />
+          </Key>
+          <Property Name="bid1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectid" Type="Int32" />
+          <Property Name="freelancerid" Type="Int32" />
+          <Property Name="proposal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userdetail" Relationship="FreelanceMPModel.FK__bid__freelanceri__286302EC" FromRole="bid" ToRole="userdetail" />
+          <NavigationProperty Name="project" Relationship="FreelanceMPModel.FK__bid__projectid__276EDEB3" FromRole="bid" ToRole="project" />
+        </EntityType>
+        <Association Name="FK__bid__freelanceri__286302EC">
+          <End Type="FreelanceMPModel.userdetail" Role="userdetail" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.bid" Role="bid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetail">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="bid">
+              <PropertyRef Name="freelancerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__bid__projectid__276EDEB3">
+          <End Type="FreelanceMPModel.project" Role="project" Multiplicity="0..1" />
+          <End Type="FreelanceMPModel.bid" Role="bid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="bid">
+              <PropertyRef Name="projectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FreelanceMPModelStoreContainer" CdmEntityContainer="FreelanceMPEntities">
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="FreelanceMPModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="rolename" ColumnName="rolename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userdetails">
+            <EntityTypeMapping TypeName="FreelanceMPModel.userdetail">
+              <MappingFragment StoreEntitySet="userdetail">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="date_of_joining" ColumnName="date_of_joining" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="isverified" ColumnName="isverified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="FreelanceMPModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="catid" ColumnName="catid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projects">
+            <EntityTypeMapping TypeName="FreelanceMPModel.project">
+              <MappingFragment StoreEntitySet="project">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_of_post" ColumnName="date_of_post" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="clientid" ColumnName="clientid" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logindetails">
+            <EntityTypeMapping TypeName="FreelanceMPModel.logindetail">
+              <MappingFragment StoreEntitySet="logindetail">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attachments">
+            <EntityTypeMapping TypeName="FreelanceMPModel.attachment">
+              <MappingFragment StoreEntitySet="attachment">
+                <ScalarProperty Name="afile" ColumnName="afile" />
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="aid" ColumnName="aid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reviews">
+            <EntityTypeMapping TypeName="FreelanceMPModel.review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="ctof" ColumnName="ctof" />
+                <ScalarProperty Name="ftoc" ColumnName="ftoc" />
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="freelancerid" ColumnName="freelancerid" />
+                <ScalarProperty Name="clientid" ColumnName="clientid" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bids">
+            <EntityTypeMapping TypeName="FreelanceMPModel.bid">
+              <MappingFragment StoreEntitySet="bid">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="proposal" ColumnName="proposal" />
+                <ScalarProperty Name="freelancerid" ColumnName="freelancerid" />
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="bid1" ColumnName="bid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

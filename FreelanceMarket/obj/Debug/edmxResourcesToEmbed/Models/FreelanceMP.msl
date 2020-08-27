@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FreelanceMPModelStoreContainer" CdmEntityContainer="FreelanceMPEntities">
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="FreelanceMPModel.role">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="roleid" ColumnName="roleid" />
+          <ScalarProperty Name="rolename" ColumnName="rolename" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userdetails">
+      <EntityTypeMapping TypeName="FreelanceMPModel.userdetail">
+        <MappingFragment StoreEntitySet="userdetail">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="date_of_joining" ColumnName="date_of_joining" />
+          <ScalarProperty Name="contact" ColumnName="contact" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="roleid" ColumnName="roleid" />
+          <ScalarProperty Name="isverified" ColumnName="isverified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="FreelanceMPModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="catid" ColumnName="catid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projects">
+      <EntityTypeMapping TypeName="FreelanceMPModel.project">
+        <MappingFragment StoreEntitySet="project">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="date_of_post" ColumnName="date_of_post" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="skills" ColumnName="skills" />
+          <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+          <ScalarProperty Name="clientid" ColumnName="clientid" />
+          <ScalarProperty Name="desc" ColumnName="desc" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="logindetails">
+      <EntityTypeMapping TypeName="FreelanceMPModel.logindetail">
+        <MappingFragment StoreEntitySet="logindetail">
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="attachments">
+      <EntityTypeMapping TypeName="FreelanceMPModel.attachment">
+        <MappingFragment StoreEntitySet="attachment">
+          <ScalarProperty Name="afile" ColumnName="afile" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="aid" ColumnName="aid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reviews">
+      <EntityTypeMapping TypeName="FreelanceMPModel.review">
+        <MappingFragment StoreEntitySet="review">
+          <ScalarProperty Name="ctof" ColumnName="ctof" />
+          <ScalarProperty Name="ftoc" ColumnName="ftoc" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="freelancerid" ColumnName="freelancerid" />
+          <ScalarProperty Name="clientid" ColumnName="clientid" />
+          <ScalarProperty Name="rid" ColumnName="rid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bids">
+      <EntityTypeMapping TypeName="FreelanceMPModel.bid">
+        <MappingFragment StoreEntitySet="bid">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="proposal" ColumnName="proposal" />
+          <ScalarProperty Name="freelancerid" ColumnName="freelancerid" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="bid1" ColumnName="bid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
