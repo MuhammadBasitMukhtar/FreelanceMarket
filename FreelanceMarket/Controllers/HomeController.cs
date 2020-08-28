@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace FreelanceMarket.Controllers
 {
     public class HomeController : Controller
     {
-        FreelanceMPEntities db = new FreelanceMPEntities();
+        private FreelanceMPEntities db = new FreelanceMPEntities();
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            var projects = db.projects.Include(p => p.category).Include(p => p.userdetail);
+            return View(projects.ToList());
         }
         public ActionResult Register()
         {
@@ -41,13 +43,26 @@ namespace FreelanceMarket.Controllers
         [HttpPost]
         public ActionResult Login(logindetail lg)
         {
-            if(lg.email == "admin@admin.com" && lg.pass == "123")
+            var id = db.userdetails.Where(i => i.email == lg.email && i.pass == lg.pass).FirstOrDefault();
+            if(id.roleid == 1)
             {
+                Session["UName"] = id.name;
                 return RedirectToAction("Dashboard", "Admin");
             }
-            else if(lg.email == "basit@email.com" && lg.pass == "123")
+            else if(id.roleid == 2)
             {
+                Session["UName"] = id.name;
                 return RedirectToAction("Dashboard", "Client");
+            }
+            else if(id.roleid == 3)
+            {
+                Session["UName"] = id.name;
+                return RedirectToAction("Dashboard", "Freelancer");
+            }
+            else
+            {
+                Session["UName"] = id.name;
+                ViewBag.Error = "Wrong Crediantials Entered!";
             }
             return View();
         }

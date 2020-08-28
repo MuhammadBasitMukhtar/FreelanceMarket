@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FreelanceMarket.Models.category>
+
+@{
+    ViewBag.Title = "CategoriesList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2>Add New Category</h2>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label class="form-control-label" for="exampleFormControlInput1">Category Name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Category Name Here">
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>List of All Categories</h2>
+                <p>
+                    @Html.ActionLink("Add New Category", "AddCategory","Admin")
+                </p>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.name)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.catid }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.catid }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.catid })
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    s
+</script>
+

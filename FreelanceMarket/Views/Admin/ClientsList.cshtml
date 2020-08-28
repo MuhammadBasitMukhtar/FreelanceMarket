@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FreelanceMarket.Models.userdetail>
+
+@{
+    ViewBag.Title = "ClientsList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card body -->
+            <div class="card-body">
+                <h2>Clients List</h2>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.date_of_joining)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.contact)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.isverified)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date_of_joining)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.contact)
+                            </td>
+                            <td>
+                                @if(item.isverified == 0)
+                                {
+                                    <span style="color: red">NOT VERIFIED</span>
+                                }
+                                else
+                                {
+                                    <span style="color: green">VERIFIED</span>
+                                }
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.userid }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.userid })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

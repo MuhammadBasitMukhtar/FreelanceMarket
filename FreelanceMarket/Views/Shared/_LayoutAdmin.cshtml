@@ -81,25 +81,31 @@
                         <!-- Nav items -->
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="@Url.Action("Dashboard","Admin")">
+                                <a class="@(ViewBag.Title == "Dashboard" ? "active nav-link" : "nav-link" )" href="@Url.Action("Dashboard","Admin")">
                                     <i class="ni ni-tv-2 text-primary"></i>
                                     <span class="nav-link-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("ClientsList","Admin")">
+                                <a class="@(ViewBag.Title == "CategoriesList" ? "active nav-link" : "nav-link" )" href="@Url.Action("CategoriesList","Admin")">
+                                    <i class="ni ni-tv-2 text-primary"></i>
+                                    <span class="nav-link-text">Categories</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="@(ViewBag.Title == "ClientsList" ? "active nav-link" : "nav-link" )" href="@Url.Action("ClientsList","Admin")">
                                     <i class="ni ni-planet text-orange"></i>
                                     <span class="nav-link-text">Clients</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("FreelancersList","Admin")">
+                                <a class="@(ViewBag.Title == "FreelancersList" ? "active nav-link" : "nav-link" )" href="@Url.Action("FreelancersList","Admin")">
                                     <i class="ni ni-pin-3 text-primary"></i>
                                     <span class="nav-link-text">Freelancers</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("ProjectsList","Admin")">
+                                <a class="@(ViewBag.Title == "ProjectsList" ? "active nav-link" : "nav-link" )" href="@Url.Action("ProjectsList","Admin")">
                                     <i class="ni ni-single-02 text-yellow"></i>
                                     <span class="nav-link-text">Projects</span>
                                 </a>
@@ -352,7 +358,7 @@
                                         <img alt="Image placeholder" src="~/paneltheme/assets/img/theme/team-4.jpg">
                                     </span>
                                     <div class="media-body  ml-2  d-none d-lg-block">
-                                        <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                                        <span class="mb-0 text-sm  font-weight-bold">@Session["UName"]</span>
                                     </div>
                                 </div>
                             </a>

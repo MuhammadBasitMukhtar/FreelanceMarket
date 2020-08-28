@@ -11,7 +11,8 @@ namespace FreelanceMarket.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class userdetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,13 +25,20 @@ namespace FreelanceMarket.Models
         }
     
         public int userid { get; set; }
+        [Display(Name = "Full Name")]
         public string name { get; set; }
+        [Display(Name = "Email Address")]
         public string email { get; set; }
+        [Display(Name = "Address")]
         public string address { get; set; }
+        [Display(Name = "Joining Date")]
         public Nullable<System.DateTime> date_of_joining { get; set; }
+        [Display(Name = "Contact No.")]
         public string contact { get; set; }
+        [Display(Name = "Password")]
         public string pass { get; set; }
         public Nullable<int> roleid { get; set; }
+        [Display(Name = "Is Verified")]
         public Nullable<int> isverified { get; set; }
     
         public virtual role role { get; set; }

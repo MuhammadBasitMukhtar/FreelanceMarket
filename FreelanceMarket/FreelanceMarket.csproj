@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FreelancerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -213,6 +214,17 @@
     <Content Include="Views\projects\Edit.cshtml" />
     <Content Include="Views\projects\Index.cshtml" />
     <Content Include="Views\Client\AddProject.cshtml" />
+    <Content Include="Views\Admin\ClientsList.cshtml" />
+    <Content Include="Views\Admin\FreelancersList.cshtml" />
+    <Content Include="Views\Admin\ProjectsList.cshtml" />
+    <Content Include="Views\Client\Dashboard.cshtml" />
+    <Content Include="Views\categories\Create.cshtml" />
+    <Content Include="Views\categories\Delete.cshtml" />
+    <Content Include="Views\categories\Details.cshtml" />
+    <Content Include="Views\categories\Edit.cshtml" />
+    <Content Include="Views\categories\Index.cshtml" />
+    <Content Include="Views\Admin\CategoriesList.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
